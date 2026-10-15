@@ -1,61 +1,20 @@
 import java.util.*;
 public class Quick_Pay_Project{
-   static Scanner input = new Scanner(System.in);
-public static void main(String[] args) {   
+static Scanner input = new Scanner(System.in);
+static int[] ids = { 111, 222, 333, 0, 0 };
+static String[] usernames = { "Adham Ahmed", "Mariam yasser", "Fatma Ashraf", "", "" };
+static String[] password = { "12345", "134340", "3211145", "", "" };
+static long[] balance = { 20000, 90000, 300000, 0, 0 };
+static String[] phones = { "01012345678", "01123456789", "01234567890", "", "" };
+static String[] emails = { "adham@mail.com", "mariam@mail.com", "fatma@mail.com", "", "" };
+static boolean[] isblocked = { true, true, false, false, false };
+static int registeredUsersCount = 3;
+static int nextId = 500;
+public static void main(String[] args) { 
 //======================================================================================//
                                     //MAIN PROGRAM//
-//======================================================================================//
-//Handles the main admin panal options
-        System.out.println("========== ADMIN PANEL ==========");
-        int chose;
-        do {
-            System.out.println("1. Show Statistics");
-            System.out.println("2. Search User");
-            System.out.println("3. View All Users");
-            System.out.println("4. Update User");
-            System.out.println("5. View All Transactions");
-            System.out.println("6. Block Account");
-            System.out.println("7. Unblock Account");
-            System.out.println("8. View User Details");
-            System.out.println("9. Logout");
-            System.out.println("Choose an option:");
-            chose = input.nextInt();
-            switch (chose) {
-                case 1:
-                    showStatistics();
-                    break;
-                case 2:
-                    searchUser();
-                    break;
-
-                case 3:
-                    viewAllUsers();
-                    break;
-                case 4:
-                    updateUser();
-                    break;
-                case 5:
-                    showTransactionHistory();
-                case 6:
-                    blockAccount();
-                    break;
-                case 7:
-
-                case 8:
-
-                case 9:
-
-                default:
-                    System.out.println("INVALID CHOISE!");
-
-
-            }
-        } while (chose != 9);
-
-
-    }
-
-
+//======================================================================================// 
+}
 // ==========================================================
 //validation 
 // ==========================================================
@@ -202,337 +161,63 @@ static boolean HasEnoughBalance (long CurrentBalance , long TransactionAmount )
         return false; 
     }
 }
-    // A method to help in printing the detailed information of a specific user by index
-    static void printuserdata(int i) {
-        System.out.println("========== User Found ==========");
-        System.out.println("ID:" + ids[i]);
-        System.out.println("USERNAME:" + USERNAME[i]);
-        System.out.println("Balance:" + balance[i]);
-        System.out.println("Email Adress:" + emails[i]);
-        System.out.println("Status:" + (isblocked[i] ? "Blocked" : "Active"));
-
+//14) SIGN UP METHOD 
+static void SignUp ()
+{
+    System.out.println("===== SIGN UP =====");
+    String newName = ReadText("Enter your name : "); 
+    if (isValidName(newName) == false )
+    {
+        System.out.println("Invalid name! Must be at least 3 letters and contain only characters and spaces.");
+        return ;
     }
-
-    static void showStatistics() {
-        //show overall statistics (total users,total balances,blocked accounts....)
-        System.out.println("========== Show Statistics ==========");
-        int totalusers = ids.length;
-        int activeusers = 0;
-        int blockredusers = 0;
-        double totaltransurfferd = 0;
-        for (int i = 0; i < USERNAME.length; i++) {
-            if (isblocked[i]) {
-                blockredusers++;
-            } else {
-                activeusers++;
-            }
-        }
-        for (double j : amountofsuctran) {
-            totaltransurfferd += j;
-
-        }
-        System.out.println("TOTAL Users:" + totalusers);
-        System.out.println("Active Acounts:" + activeusers);
-        System.out.println("Blocked Acounts:" + blockredusers);
-        System.out.println("Successful Transactions:" + successfultransactions);
-        System.out.println("Faild Transactions:" + faildtransactions);
-        System.out.println("Tolal Amount of Successful Transactions:" + totaltransurfferd);
-
+    String newEmail = ReadText("Enter your email : ");
+    if (isValidEmail(newEmail) == false ) 
+    {
+        System.out.println("Invalid email format");
+        return;
     }
-
-    static void searchUser() {
-        //Searches for a user using 4 options(ID,FULLNAME,EMAIL,PHONE)
-        System.out.println("==========  Search User ==========");
-        System.out.println("Chose from (1-4)");
-        System.out.println("1.Search by ID");
-        System.out.println("2.Search by FULL NAME");
-        System.out.println("3.Search by phone number");
-        System.out.println("4.Email adress");
-        int methods = input.nextInt();
-        input.nextLine();
-        boolean isfound = false;
-
-        switch (methods) {
-            case 1://Search by user id
-                System.out.println("Enter ID to search:");
-                int idsearch = input.nextInt();
-                for (int i = 0; i < ids.length; i++) {
-                    if (ids[i] == idsearch) {
-                        printuserdata(i);
-                        isfound = true;
-                        break;
-                    }
-                }
-                break;
-            case 2://Search by fullname(case-insensitive)
-                System.out.println("Enter full name to search");
-                String namesearch = input.nextLine();
-                for (int i = 0; i < USERNAME.length; i++) {
-                    if (USERNAME[i].equalsIgnoreCase(namesearch)) {
-                        printuserdata(i);
-                        isfound = true;
-                        break;
-                    }
-                }
-                break;
-            case 3://Search by phone number
-                System.out.println("Enter phone number to search:");
-                String phonesearch = input.nextLine();
-                for (int i = 0; i < phones.length; i++) {
-                    if (phones[i].equalsIgnoreCase(phonesearch)) {
-                        printuserdata(i);
-                        isfound = true;
-                        break;
-                    }
-                }
-                break;
-            case 4://Search by email(case-insensitive)
-                System.out.println("Enter Email addres to search:");
-                String EMAILSEARCH = input.nextLine();
-                for (int i = 0; i < emails.length; i++) {
-                    if (emails[i].equalsIgnoreCase(EMAILSEARCH)) {
-                        printuserdata(i);
-                        isfound = true;
-                        break;
-                    }
-                }
-                break;
-            default:
-                System.out.println("INVALID CHOICE");
-        }
-
-        if (!isfound) {
-            System.out.println("USER IS NOT FOUND");
-        }
-
-
+    if (isAlreadyExist(emails , newEmail ))
+    {
+        System.out.println("Email already exists");
+        return;
     }
-
-    static void viewAllUsers() {
-        //Shows a list of all users registered in the system
-        System.out.println("========== View All Users ==========");
-        // Check for empty arrays
-        if (ids.length == 0) {
-            System.out.println("NO USER FOUND");
-            return;
-        }
-        //loop goes through all users and print thier data
-        for (int i = 0; i < ids.length; i++) {
-            System.out.println("User:" + (i + 1));
-            printuserdata(i);
-        }
-
-
+    String newPhone = ReadText("Enter your phone number : ");
+    if (isValidPhone(newPhone) == false)
+    {
+        System.out.println("Invalid phone number must be 11 digits starting with 01 ");
+        return;
     }
-
-    static void updateUser() {
-        //Updates specific information about a selected user by entering their IDs
-        System.out.println("Enter user ID to update:");
-        int idforuser = input.nextInt();
-        input.nextLine();
-        boolean isfound = false;
-        for (int i = 0; i<ids.length; i++) {
-            if (ids[i] == idforuser) {
-                isfound = true;
-                System.out.println("==========  USER IS FOUND ==========");
-                printuserdata(i);
-                System.out.println("Chosse what you want to update:");
-                System.out.println("1.Update Username");
-                System.out.println("2.Update Email");
-                System.out.println("3.Update Phone Number");
-                System.out.println("Enter choice (1-3):");
-                int choice = input.nextInt();
-                input.nextLine();
-                switch (choice) {
-                    case 1:
-                        {
-    System.out.println("Enter new Username:");
-    String newName = input.nextLine();
-
-    while (isValidName(newName) == false) {
-        System.out.println("Invalid name!");
-        System.out.println("Enter new Username again:");
-        newName = input.nextLine();
+    if (isAlreadyExist(phones , newPhone ) == true )
+    {
+        System.out.println("Phone number already exists ");
+        return;
     }
-
-    String OLDNAME = USERNAME[i];
-    USERNAME[i] = newName;
-
-    for (int j = 0; j < transactionSenders.length; j++) {
-
-        if (transactionSenders[j].equalsIgnoreCase(OLDNAME)) {
-            transactionSenders[j] = newName;
-        }
-
-        if (transactionReceivers[j].equalsIgnoreCase(OLDNAME)) {
-            transactionReceivers[j] = newName;
-        }
+    String newPassword = ReadText("Enter your password : ");
+    if (isValidPassword(newPassword) == false) 
+    {
+        System.out.println("Invalid password! Must be 5 or more characters and contain no spaces.");
+        return;
     }
-
-    System.out.println("Username updated successfully");
-    break;
-                        }
-                    
-                case 2: {
-    System.out.println("Enter new Email:");
-    String newEmail = input.nextLine();
-
-    while (isValidEmail(newEmail) == false) {
-        System.out.println("Invalid email!");
-        System.out.println("Enter new Email again:");
-        newEmail = input.nextLine();
+    long newBalance = ReadNumber("Enter your balance : ");
+    if (isValidAmount(newBalance) == false)
+    {
+        System.out.println("Invalid amount Balance must be greater than zero ");
+        return;
     }
-
-    boolean emailExists = false;
-
-    for (int j = 0; j < emails.length; j++) {
-        if (j != i && emails[j].equalsIgnoreCase(newEmail)) {
-            emailExists = true;
-        }
-    }
-
-    while (emailExists == true) {
-        System.out.println("Email already exists!");
-        System.out.println("Enter another email:");
-        newEmail = input.nextLine();
-
-        while (isValidEmail(newEmail) == false) {
-            System.out.println("Invalid email!");
-            System.out.println("Enter new Email again:");
-            newEmail = input.nextLine();
-        }
-
-        emailExists = false;
-
-        for (int j = 0; j < emails.length; j++) {
-            if (j != i && emails[j].equalsIgnoreCase(newEmail)) {
-                emailExists = true;
-            }
-        }
-    }
-
-    emails[i] = newEmail;
-
-    System.out.println("Email updated successfully!");
-    break;
-}
-
-
-
-            case 3: {
-    System.out.println("Enter new phone number:");
-    String newPhone = input.nextLine();
-
-    while (isValidPhone(newPhone) == false) {
-        System.out.println("Invalid phone number!");
-        System.out.println("Enter phone number again:");
-        newPhone = input.nextLine();
-    }
-
-    boolean phoneExists = false;
-
-    for (int j = 0; j < phones.length; j++) {
-        if (j != i && phones[j].equals(newPhone)) {
-            phoneExists = true;
-        }
-    }
-
-    while (phoneExists == true) {
-        System.out.println("Phone number already exists!");
-        System.out.println("Enter another phone number:");
-        newPhone = input.nextLine();
-
-        while (isValidPhone(newPhone) == false) {
-            System.out.println("Invalid phone number!");
-            System.out.println("Enter phone number again:");
-            newPhone = input.nextLine();
-        }
-
-        phoneExists = false;
-
-        for (int j = 0; j < phones.length; j++) {
-            if (j != i && phones[j].equals(newPhone)) {
-                phoneExists = true;
-            }
-        }
-    }
-
-    phones[i] = newPhone;
-
-    System.out.println("Phone Number updated successfully!");
-    break;
-}
-                    default:
-                        System.out.println("INVALID CHOICE!");
-                }
-                break;
-
-            }
-        }
-        if (!isfound){
-            System.out.println("User not found");
-        }
-    }
-static void  showTransactionHistory(){
-        //shows all transactions history
-        System.out.println("========== ALL TRANSACTIONS HISTROY ==========");
-        if (transactionIDs.length==0){
-            System.out.println("NO transactions found");
-            return;
-        }
-        for (int i =0;i<transactionIDs.length;i++){
-            System.out.println("Transaction ID :"+transactionIDs[i]);
-            System.out.println("Sender :"+transactionSenders[i]);
-            System.out.println("Recever :"+transactionReceivers[i]);
-            System.out.println("Amount :"+amountofsuctran[i]);
-            System.out.println("Status :"+transactionStatuses[i]);
-            System.out.println("--------------------------------------------------");
-        }
-
+    int assignedId = nextId;
+    nextId = nextId + 1;
+    ids[registeredUsersCount] = assignedId;
+    usernames[registeredUsersCount] = newName;
+    emails[registeredUsersCount] = newEmail;
+    phones[registeredUsersCount] = newPhone;
+    password[registeredUsersCount] = newPassword;
+    balance[registeredUsersCount] = newBalance;
+    isblocked[registeredUsersCount] = false;
+    registeredUsersCount = registeredUsersCount + 1;
+    System.out.println("Account created successfully! You can now login " + "your ID is : " + assignedId);
 
 }
-static void blockAccount() {
-        //block accounts baisd on ID
-        System.out.println("Enter user ID to block");
-        int idtoblock=input.nextInt();
-        input.nextLine();
-        boolean isfound =false;
-        for (int i =0;i<ids.length;i++) {
-            if (ids[i] == idtoblock) {
-                isfound = true;
-                if (isblocked[i]) {
-                    System.out.println("This Acount is Already blocked");
-                } else {
-                    isblocked[i] = true;
-                    System.out.println("Acount For" +" "+ USERNAME[i] +" "+ "blocked successfully.");
-                }
-                break;
-            }
-        }
-        if (!isfound){
-            System.out.println("User not found");
-        }
-
-
-                }
-
-
-
-    //Global variabls useing arrays to store database information
-
-    static int[] ids = {111, 222, 333};
-    static String[] USERNAME = {"adham ahmed", "mariam yasser", "fatma ashraf"};
-    static String[] emails = {"adham@gmail.com", "mariam@gmail.com", "fatma@gmail.com"};
-    static long[] balance = {20000, 90000, 300000};
-    static boolean[] isblocked = {true, true, false};
-    static int successfultransactions = 5;
-    static int faildtransactions = 3;
-    static double[] amountofsuctran = {50.0, 100.0, 300.0, 500.0, 40.0, 600.0,900.0,30.0};
-    static String[] phones = {"01012345678", "01123456789", "01234567890"};
-static int[]transactionIDs = {101,102,103,104,105,106,107,108};
-static String[]transactionSenders = {"adham ahmed","mariam yasser","fatma ashraf","adham ahmed","mariam yasser","fatma ashraf","adham ahmed","mariam yasser"};
-static String[]transactionReceivers = {"mariam yasser","fatma ashraf","adham ahmed","fatma ashraf","adham ahmed","mariam yasser","fatma ashraf","adham ahmed"};
-static String[]transactionStatuses = {"SUCCESS","SUCCESS","SUCCESS","SUCCESS","SUCCESS","FAILED","FAILED","FAILED"};
-static String[]passwords = {"12345","13430","3211145"};
-
 }
+
+    
