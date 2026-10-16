@@ -27,7 +27,7 @@ public class Main {
     static int successfultransactions = 5;
     static int faildtransactions = 3;
     static String[] usernamesadmin = { "amr ashraf", "houda ahmed", "hana khaled" };
-    static String[] phoneforadminpanalp = { "git", "01145672345", "01034456783" };
+    static String[] phoneforadminpanalp = { "01546893456", "01145672345", "01034456783" };
     static double[] amountofsuctran = { 50.0, 100.0, 300.0, 500.0, 40.0, 600.0, 900.0, 30.0 };
     static int[] transactionIDs = { 101, 102, 103, 104, 105, 106, 107, 108 };
     static String[] transactionSenders = { "adham ahmed", "mariam yasser", "fatma ashraf", "adham ahmed", "mariam yasser", "fatma ashraf", "adham ahmed", "mariam yasser" };
